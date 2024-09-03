@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.file-upload-wrapper {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+header {
+    font-size: 1.5rem;
+    color: #4a90e2;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #357ab8;
+}
+
+.progress-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.progress-bar-wrapper {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 20px;
+    background-color: #4a90e2;
+    transition: width 0.3s ease;
+}
+
+#uploadStatus {
+    margin-top: 10px;
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+
+/* Add this to the existing CSS */
+
+.controls {
+    margin-top: 20px;
+}
+
+button {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #357ab8;
+}
+
+button:disabled {
+    background-color: #b0b0b0;
+    cursor: not-allowed;
+}
+
+/* Add this to the existing CSS */
+
+.file-item {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    position: relative;
+}
+
+.file-item .filename {
+    font-weight: bold;
+}
+
+.file-item .progress-container {
+    margin-top: 10px;
+}
+
+.file-item .progress-bar-wrapper {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.file-item .progress-bar {
+    width: 0%;
+    height: 20px;
+    background-color: #4a90e2;
+    transition: width 0.3s ease;
+}
+
+.file-item .upload-status {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.file-item .button-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.file-item .pause-play-button,
+.file-item .cancel-stop-button,
+.file-item .delete-button {
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.file-item .pause-play-button {
+    background-color: #f1c40f;
+}
+
+.file-item .cancel-stop-button {
+    background-color: #e94f4f;
+}
+
+.file-item .delete-button {
+    background-color: #e94f4f;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.file-item .pause-play-button:hover {
+    background-color: #e1b12c;
+}
+
+.file-item .cancel-stop-button:hover {
+    background-color: #c43c3c;
+}
+
+.file-item .delete-button:hover {
+    background-color: #c43c3c;
+}
+
+/* Hide buttons initially */
+.file-item .button-container {
+    display: none;
+}
+
+/* Show buttons when uploading */
+.file-item.uploading .button-container {
+    display: flex;
+}

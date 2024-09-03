@@ -3,44 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chunked File Upload</title>
+    <title>File Upload with Progress Bar</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Chunked File Upload</h1>
-    <input type="file" id="fileInput">
-    <button onclick="uploadFile()">Upload</button>
-
-    <script>
-        async function uploadFile() {
-            const fileInput = document.getElementById('fileInput');
-            const file = fileInput.files[0];
-            const chunkSize = 1024 * 1024; // 1 MB chunks
-            let offset = 0;
-
-            while (offset < file.size) {
-                const chunk = file.slice(offset, offset + chunkSize);
-                await uploadChunk(chunk, file.name, offset);
-                offset += chunkSize;
-            }
-
-            alert('Upload complete!');
-        }
-
-        async function uploadChunk(chunk, filename, offset) {
-            const response = await fetch('/upload-octet/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/octet-stream',
-                    'X-File-Name': filename,
-                    'X-File-Offset': offset
-                },
-                body: chunk
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to upload chunk');
-            }
-        }
-    </script>
+    <div class="file-upload-wrapper">
+        <header>File Uploader with Progress Bar</header>
+        <div class="form-container">
+            <form id="fileUploadForm">
+                <input type="file" id="fileInput" multiple hidden>
+                <button type="button" id="selectFileButton">
+                    <i class="fas fa-cloud-upload-alt"></i> Browse Files to Upload
+                </button>
+            </form>
+            <div id="fileUploadList"></div>
+        </div>
+    </div>
+    <!-- Link to the JS file -->
+    <script src="/static/script.js"></script>
 </body>
 </html>

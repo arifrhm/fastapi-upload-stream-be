@@ -3,11 +3,15 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi.staticfiles import StaticFiles
 import aiofiles
 import os
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+
+# Mount the static files directory to serve CSS and JS files
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Add CORS middleware
 app.add_middleware(
