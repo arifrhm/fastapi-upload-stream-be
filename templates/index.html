@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chunked File Upload</title>
+</head>
+<body>
+    <h1>Chunked File Upload</h1>
+    <input type="file" id="fileInput">
+    <button onclick="uploadFile()">Upload</button>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const chunkSize = 1024 * 1024; // 1 MB chunks
+            let offset = 0;
+
+            while (offset < file.size) {
+                const chunk = file.slice(offset, offset + chunkSize);
+                await uploadChunk(chunk, file.name, offset);
+                offset += chunkSize;
+            }
+
+            alert('Upload complete!');
+        }
+
+        async function uploadChunk(chunk, filename, offset) {
+            const response = await fetch('/upload-octet/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/octet-stream',
+                    'X-File-Name': filename,
+                    'X-File-Offset': offset
+                },
+                body: chunk
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to upload chunk');
+            }
+        }
+    </script>
+</body>
+</html>
