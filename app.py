@@ -1,11 +1,28 @@
 from fastapi import FastAPI, Request, Header
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 import aiofiles
 import os
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
+
+# Add GZip middleware
+app.add_middleware(
+    GZipMiddleware,
+    minimum_size=1000  # Minimum size of response (in bytes) to compress
+)
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -13,7 +30,7 @@ async def main_page(request: Request):
     return templates.TemplateResponse(
         "index.html",
         {"request": request}
-        )
+    )
 
 
 @app.post("/upload-octet/")
@@ -44,5 +61,5 @@ async def upload_status(filename: str):
         return {
             "status": "In progress",
             "uploaded_bytes": os.path.getsize(file_path)
-            }
+        }
     return {"status": "Not found", "uploaded_bytes": 0}
